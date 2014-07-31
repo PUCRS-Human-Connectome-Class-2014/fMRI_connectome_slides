@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="R. Cameron Craddock, PhD" />
+  <meta name="author" content="Research Scientist VI, Nathan S. Kline Institute for Psychiatric Research, New York, NY" />
+  <meta name="author" content="Director of Imaging, Child Mind Institute, New York, NY" />
+  <meta name="date" content="2014-07-29" />
+  <title>Lecture #2: Mapping functional interactions in the connectome with fMRI</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" type="text/css" media="screen, projection, print"
+    href="http://www.w3.org/Talks/Tools/Slidy2/styles/slidy.css" />
+  <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <script src="http://www.w3.org/Talks/Tools/Slidy2/scripts/slidy.js"
+    charset="utf-8" type="text/javascript"></script>
+</head>
+<body>
+<div class="slide titlepage">
+  <h1 class="title">Lecture #2: Mapping functional interactions in the connectome with fMRI</h1>
+  <p class="author">
+R. Cameron Craddock, PhD<br/>Research Scientist VI, Nathan S. Kline Institute for Psychiatric Research, New York, NY<br/>Director of Imaging, Child Mind Institute, New York, NY
+  </p>
+  <p class="date">July 29, 2014</p>
+</div>
+<div id="overview-of-mri" class="slide section level1">
+<h1>Overview of MRI</h1>
+<ul>
+<li>Spinning hydrogen protons have a magnetic moment (<span class="math">\(\mu\)</span>)</li>
+<li>At room temperature protons will align to an external magnetic field (<span class="math">\(B_0\)</span>) to produce a net magnetization of roughly 3 ppm * <span class="math">\(\mu\)</span> per Tesla</li>
+<li>Hydrogen protons in a magnetic field precess at the Larmor frequency (<span class="math">\(f=42.58\,Hz/T\)</span>)</li>
+<li>Protons can be <em>flipped</em> away from <span class="math">\(B_0\)</span> using a RF pulse centered at the Larmor frequency allowing their magnetic field to be measured using a receiver coil (antenna)</li>
+<li>Protons will return to aligment with <span class="math">\(B_{0}\)</span> with a time constant <span class="math">\(T_1\)</span></li>
+<li>The magnetization perpindicular to <span class="math">\(B_{0}\)</span> will dephase with a time constant <span class="math">\(T_{2}^{*}\)</span> due to diffusion and variations in the magnetic field</li>
+<li>Spatially varying magnetic fields (gradients) can be used to encode a spin's position in the frequency of its rotation</li>
+</ul>
+</div>
+<div id="mapping-functional-interactions-with-fmri" class="slide section level1">
+<h1>Mapping functional interactions with fMRI</h1>
+<center>
+<img vspace="20" src="imgs/fmri_connectomes.png" width=600>
+</center>
+
+</div>
+<div id="fmri-depends-on-t_2-contrast" class="slide section level1">
+<h1>fMRI depends on <span class="math">\(T_{2}^{*}\)</span> contrast</h1>
+<center>
+<img vspace="20" src="imgs/hemoglobin.png" width=600>
+</center>
+
+<ul>
+<li>An fMRI time-course is formed by the rapid acquisition of MR images that are sensitive to the &quot;blood oxygen level dependent&quot; (BOLD) contrast</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Hemoglobin, the protein which transports oxygen in the blood, contains four heme molecules, each with an atom of iron</li>
+<li>Deoxy-hemoglobin is paramagnetic and creates a magnetic gradient that dephases the MRI signal</li>
+<li>Oxy-hemoglobin is diamagnetic and does not affect the MRI signal</li>
+</ol>
+</div>
+<div id="hemodynamic-response" class="slide section level1">
+<h1>Hemodynamic response</h1>
+<center><figure>
+<img vspace="20" src="imgs/BOLD_model.png" width=400><small>
+<figcaption>
+R.B. Buxton, NeuroImage 62 (2012) 953-961.</small>
+</figcaption></figure></center>
+
+<ul>
+<li>It is not know for certain how the hemodynamic response is triggered or the phsyiological mechanisms behind its shape, but a model is emerging from experimental evidence.</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Initially neurons begin firing in response to a stimulus and consumes locally stored metabolites and oxygen, increasing the amount of deoxy-hemoglobin which decreases the MR signal</li>
+<li>The body is instructed to increase blood flow to the area (via astrocytes?)</li>
+<li>The rate of extraction of oxygen from blood (and oxygen metabolism) is slower than the blood flow, resulting in a net increase in oxygenated blood, and a MR signal increase</li>
+<li>After neuronal activity ceases, the signal returns to baseline after a brief undershoot</li>
+</ol>
+</div>
+<div id="fmri-data" class="slide section level1">
+<h1>fMRI Data</h1>
+<center>
+<img vspace="20" src="imgs/EPI_ax_mont.jpg" width=800>
+</center>
+
+<ul>
+<li>fMRI data are acquired using <span class="math">\(T_{2}^{*}\)</span> weighted gradient-echo EPI sequences</li>
+<li>The optimal <span class="math">\(T_{E}\)</span> for BOLD is 45ms at 1.5T and 30ms at 3T</li>
+<li>Spatial resolution is typically ~ <span class="math">\(3 \times 3 \times 3 mm^3\)</span></li>
+<li><span class="math">\(T_{R}\)</span> depends on the number of slices acquired (~ 60ms per slice) ~ 120mm typically needed to cover entire brain, 40 slices, <span class="math">\(T_{R} \approx 2500ms\)</span></li>
+</ul>
+</div>
+<div id="fmri-experiment" class="slide section level1">
+<h1>fMRI Experiment</h1>
+<center><figure>
+<img vspace="20" src="imgs/fmri_exp.png">
+<figcaption>
+<small>Finger tapping experiment.</small>
+</figcaption></figure></center>
+
+</div>
+<div id="resting-state-functional-connectivity" class="slide section level1">
+<h1>Resting State Functional Connectivity</h1>
+<center><figure>
+<img vspace="20" src="imgs/rest_fc.png" width=600>
+<figcaption>
+<small>Biswal et al. MRM 1995.</small>
+</figcaption></center>
+
+<ul>
+<li>Intrinsic activity is &quot;ongoing neural and metabolic activity which is not directly associated with subjects’ performance of a task&quot; - Raichle TICS 2010</li>
+</ul>
+</div>
+<div id="intrinsic-connectivity-networks" class="slide section level1">
+<h1>Intrinsic Connectivity Networks</h1>
+<center>
+    
+<img src="imgs/ICA_RSN.png" width=300> <img src="imgs/seed_rsn.png" width=300>
+</center>
+
+</div>
+<div id="functional-connectivity-analysis" class="slide section level1">
+<h1>Functional Connectivity Analysis</h1>
+<center>
+<img vspace=20 src="imgs/fc_experiment.png" width=600>
+</center>
+
+<ul>
+<li>A &quot;typical&quot; resting state FC experiment comparing two groups</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Data are preprocessed to make the comparable across participants and to remove noise</li>
+<li>Indiviudal level FC maps are generated for a <em>seed</em> region by correlating the <em>seed time course</em> with the time course of every other voxel in the brain</li>
+<li>FC maps are compared between groups voxel-by-voxel using t-tests or ANOVAs</li>
+</ol>
+</div>
+<div id="a-note-about-structural-images" class="slide section level1">
+<h1>A note about structural images</h1>
+<center>
+<img src="imgs/struct_norm.png" width=400><img hspace = 20 src="imgs/structural_seg.png" width=400>
+</center>
+
+<ul>
+<li>Structural imaging data are used to calculate spatial normalizations and to derive tissue masks
+<ul>
+<li>The calucalated transforms will be used to spatially normalize fMRI data</li>
+<li>The segmentation masks will be used to calculate noise regressors</li>
+</ul></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>Image is skullstripped to remove non-brain structure<br /></li>
+<li>Image is normalized to a standard template space using a highly-nonlinear (1000s of parameter) transformation</li>
+<li>Image is segmented into white matter, grey matter, and cerebro-spinal fluid</li>
+</ol>
+</div>
+<div id="functional-preprocessing" class="slide section level1">
+<h1>Functional Preprocessing</h1>
+<ol style="list-style-type: decimal">
+<li>Slice timing correction</li>
+<li>Motion correction</li>
+<li>Calculate EPI - T1 transform</li>
+<li>Nuisance variance regression
+<ul>
+<li>Linear and quadratic drifts</li>
+<li>Physiological signals or WM and CSF</li>
+<li>Motion parameters (6 or 24 regressor model)</li>
+</ul></li>
+<li>Bandpass filter</li>
+<li>Copy into MNI space</li>
+<li>Spatial smoothing</li>
+</ol>
+</div>
+<div id="slice-timing-correction" class="slide section level1">
+<h1>Slice Timing Correction</h1>
+<center><figure>
+<img vspace="20" src="imgs/SliceScanTimeCorrection1.png" width=600>
+<figcaption>
+<small><a href="http://www.brainvoyager.com/bvqx/doc/UsersGuide/Preprocessing/SliceScanTimeCorrection.html">www.brainvoyager.com</a></small>
+</figcaption></center>
+
+
+<ul>
+<li>Since fMRI data is collected one slice at a time using gradient-echo EPI there is a ~60ms difference between the time that slices are acquired</li>
+<li>As a result time courses in different slices are not synchronized</li>
+<li>Slice timing correction, re-aligns the time courses by interpolating them all to the same timing</li>
+</ul>
+</div>
+<div id="head-motion-correction---coregistration" class="slide section level1">
+<h1>Head Motion Correction - Coregistration</h1>
+<center><figure>
+<img vspace="20" src="imgs/motion_artifacts.png" width=300 align="top"><img vspace="70" hspace=20 src="imgs/motion3.gif" width=300>
+<figcaption>
+<small><a href="http://imaging.mrc-cbu.cam.ac.uk/imaging/CommonArtefacts">http://imaging.mrc-cbu.cam.ac.uk/imaging/CommonArtefacts</a></small>
+</figcaption></center>
+
+<ul>
+<li>Head motion is one of the most deleterious sources of noise in imaging</li>
+<li>Motion during the acquisition of a slice will result in blurring, ghosting, and other reconstruction errors</li>
+<li>Motion that occurs between the acquisition of slices will result in mis-registration of imaging volumes</li>
+<li>The misalignment between images can be accounted for using coregistration algorithms.</li>
+</ul>
+</div>
+<div id="head-motion-correction---intensity-modulation" class="slide section level1">
+<h1>Head Motion Correction - Intensity Modulation</h1>
+<center>
+<img vspace=0 hspace=0 src="imgs/mot_params.png" width=400>
+</center>
+
+<ul>
+<li>Additionally head motion adds in intensity modulations due to partial voluming effects and spin history</li>
+<li>These can be corrected by regressing models of motion from the dataset
+<ul>
+<li>6 motion parameters (Fox et al. 2006)</li>
+<li>6 motion parameters, their squares, the parameters from the time before, and the squares of the previous parameters</li>
+<li>scrubbing - delete frames near where head motion occurs</li>
+<li>scrubbing regression - replace offending frames with mean</li>
+<li>despiking - detect spikes and reduce them to a acceptable value</li>
+</ul></li>
+</ul>
+</div>
+<div id="signal-drifts" class="slide section level1">
+<h1>Signal Drifts</h1>
+<ul>
+<li>Throughout the course of the scan, as the gradients warm up, the MRI signal may slowly &quot;drift&quot;</li>
+<li>These are not very strong in newer MRIs, but are noticable from time to time</li>
+<li>These can be removed from the data by deterending, which models the drift as a low order polynomial and subtracts the fitted polynomial from the data</li>
+</ul>
+</div>
+<div id="physiological-noise" class="slide section level1">
+<h1>Physiological Noise</h1>
+<ul>
+<li>The brain pulses with the heart beat, which results in motion artifacts, and intensity modulations - can be measured in CSF and at saggital sinus</li>
+<li>The rise and fall of the abdomen in the magnetic field induces global intensity modulations, and the changes in depth and rate of breathing result in changes to brain oxygenation level</li>
+<li>Both of these noise sources can be modeled from recordings of heart rate (pulse oximeter) and respiration (repiratory belt), and regressed from the signal (PhysioFix, Retroicor)</li>
+<li>Due to difficulties collected physio recordings in the scanner, the signal from white matter and CSF are commonly regressed from the signal to account for this variance
+<ul>
+<li>WM and CSF are determined using tissue masks derived from anatomical image</li>
+<li>white matter is a surrogate for respiratory effects</li>
+<li>CSF is a surrogate for heart rate effects</li>
+<li>Can use multiple regressors that account for spatial variation in the signal (AnatIcorr, CompCorr)</li>
+</ul></li>
+<li>Global signal is sometimes included as a non-specific surrogate for noise, but has become unpopular since it can introduce negative correlations</li>
+</ul>
+</div>
+<div id="nuisance-variable-regression" class="slide section level1">
+<h1>Nuisance Variable Regression</h1>
+<ul>
+<li>Previously discuss nuisance signals (<span class="math">\(\mathbf{\eta}\)</span>) can be removed from the voxel time course (<span class="math">\(v[t]\)</span>) using a regression model</li>
+</ul>
+<p><span class="math">\[v[t] = \mathbf{\beta}^T\mathbf{\eta[t]} + \nu[t] \]</span></p>
+<ul>
+<li>The residuals of the model <span class="math">\(\nu[t]\)</span> are the cleaned time courses</li>
+</ul>
+</div>
+<div id="bandpass-filtering" class="slide section level1">
+<h1>Bandpass Filtering</h1>
+<ul>
+<li>The resting state fMRI phenomenon is thought to be centered in the frequencies 0.001 Hz to 0.08 Hz, as a result it is common to apply a bandpass filter to the data to restrict the frequencies to this range</li>
+<li>This doesn't remove much noise, because it is smeared throughout the frequency range</li>
+<li>Many researchers now recommend to not use filtering, since their may be higher frequency information present in the data</li>
+<li>Filtering should be performed after nuisance signal regression</li>
+</ul>
+</div>
+<div id="finally" class="slide section level1">
+<h1>Finally</h1>
+<ul>
+<li>Now that the data is de-noised it is ready to use</li>
+<li>The data is written into standard space</li>
+<li>Data is smoothed to improve correspondance between brains of different subjects</li>
+</ul>
+</div>
+<div id="calculating-derivatives" class="slide section level1">
+<h1>Calculating derivatives</h1>
+<p><a href="http://fcp-indi.github.io/docs/user/derivs.html" >C-PAC User Guide</a></p>
+</div>
+</body>
+</html>
